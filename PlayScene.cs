@@ -14,6 +14,7 @@ public class PlayScene : IScene
     private Ball _ball;
     private List<Sprite> _sprites;
     private Texture2D _paddleTexture;
+    private ParticleSystem _particleSystem;
 
     public PlayScene(Game1 game, SpriteFont font)
     {
@@ -26,6 +27,9 @@ public class PlayScene : IScene
         Color[] colorData = new Color[20 * 120];
         Array.Fill(colorData, Color.White);
         _paddleTexture.SetData(colorData);
+
+        _particleSystem = new ParticleSystem(_game.GraphicsDevice);
+        
         
         InitializeEntities();
     }
@@ -73,6 +77,8 @@ public class PlayScene : IScene
             sprite.Update(gameTime, _ball, _gameWindow);
         }
 
+        _particleSystem.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
+
         CheckCollisions();
         CheckGameOver();
     }
@@ -90,6 +96,9 @@ public class PlayScene : IScene
         {
             sprite.Draw(spriteBatch);
         }
+
+        // Draw Particles
+        _particleSystem.Draw(spriteBatch);
 
         // Score
         spriteBatch.DrawString(_font, Constants.CpuScore.ToString(), new Vector2(Constants.ScreenWidth/4 - 20, 20), Color.White);
@@ -112,6 +121,9 @@ public class PlayScene : IScene
                 _ball.SpeedY += new Random().Next(-50, 50); // Add variation
                 _ball.IncreaseSpeed(); // Increase ball speed after paddle hit
                 _game.AudioManager.PlayHitSound();
+
+                // Emit particles at collision point
+                _particleSystem.Emit(_ball.Position, 20, Constants.Yellow);
                 break;
             }
         }

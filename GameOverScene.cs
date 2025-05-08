@@ -27,8 +27,8 @@ public class GameOverScene : IScene
     public void Draw(SpriteBatch spriteBatch)
     {
         var message = Constants.PlayerScore >= Constants.MaxScore
-            ? "Player Wins!"
-            : "CPU Wins!";
+            ? "CPU Wins!"
+            : "Player Wins!";
 
         var instruction = "Press Enter to Play Again\nEsc to Menu";
 
