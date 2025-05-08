@@ -11,6 +11,7 @@ public class Ball
     public float SpeedX, SpeedY;
     private const float SpeedIncrease = 50f; // Speed increase per paddle hit
     private const float MaxSpeed = 1000f; 
+    private const float InitialSpeed = 400f; 
 
     public Ball(Game1 game)
     {
@@ -48,8 +49,10 @@ public class Ball
     {
         Position = new Vector2(window.ClientBounds.Width / 2, window.ClientBounds.Height / 2);
         var rand = new Random();
-        SpeedX = Math.Abs(SpeedX) * (rand.Next(0, 2) == 0 ? -1 : 1);
-        SpeedY = Math.Abs(SpeedY) * (rand.Next(0, 2) == 0 ? -1 : 1);
+        
+        // Reset to initial speed
+        SpeedX = InitialSpeed * (rand.Next(0, 2) == 0 ? -1 : 1);
+        SpeedY = InitialSpeed * (rand.Next(0, 2) == 0 ? -1 : 1);
     }
 
     public void IncreaseSpeed()
@@ -63,5 +66,4 @@ public class Ball
         SpeedX *= speedRatio;
         SpeedY *= speedRatio;
     }
-
 }

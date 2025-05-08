@@ -53,6 +53,8 @@ public class PlayScene : IScene
         _ball = new Ball(_game)
         {
             Radius = 12,
+            SpeedX = 400,
+            SpeedY = 400,
             Position = new Vector2(Constants.ScreenWidth/2, Constants.ScreenHeight/2)
         };
 
