@@ -6,7 +6,7 @@ namespace Mono_PongGame;
 public class CpuPaddle : Sprite
 {
     public float Speed;
-    private const float ReactionThreshold = 0.3f; // Atraso na reação
+    private const float ReactionThreshold = 0.3f; // Delay Rection
 
     public CpuPaddle(Texture2D texture, Vector2 position) 
         : base(texture, position, 1.0f)
@@ -19,8 +19,8 @@ public class CpuPaddle : Sprite
         
         var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
         var targetY = ball.Position.Y - (Rect.Height / 2);
-        
-        // Movimento suavizado com limite de velocidade
+
+        // Smoothed movement with velocity limit
         if (Position.Y + ReactionThreshold < targetY)
         {
             Position.Y += Speed * deltaTime;

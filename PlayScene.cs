@@ -21,7 +21,7 @@ public class PlayScene : IScene
         _font = font;
         _gameWindow = _game.Window;
         
-        // Criar textura para os paddles com tamanho adequado
+        // Create the textures for the paddles with right size
         _paddleTexture = new Texture2D(_game.GraphicsDevice, 20, 120);
         Color[] colorData = new Color[20 * 120];
         Array.Fill(colorData, Color.White);
@@ -49,12 +49,10 @@ public class PlayScene : IScene
         _sprites.Add(player);
         _sprites.Add(cpu);
 
-        // Bola
-        _ball = new Ball
+        // Ball
+        _ball = new Ball(_game)
         {
             Radius = 12,
-            SpeedX = 400,
-            SpeedY = 400,
             Position = new Vector2(Constants.ScreenWidth/2, Constants.ScreenHeight/2)
         };
 
@@ -79,19 +77,19 @@ public class PlayScene : IScene
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        // Campo
+        // Field
         spriteBatch.DrawRectangle(new Rectangle(Constants.ScreenWidth/2, 0, Constants.ScreenWidth/2, Constants.ScreenHeight), Constants.Green);
         spriteBatch.DrawCircle(new Vector2(Constants.ScreenWidth/2, Constants.ScreenHeight/2), 150, Constants.LightGreen);
         spriteBatch.DrawLine(Constants.ScreenWidth/2, 0, Constants.ScreenWidth/2, Constants.ScreenHeight, Color.White);
 
-        // Entidades
+        // Entities
         spriteBatch.DrawCircle(_ball.Position, _ball.Radius, Constants.Yellow);
         foreach (var sprite in _sprites)
         {
             sprite.Draw(spriteBatch);
         }
 
-        // Placar
+        // Score
         spriteBatch.DrawString(_font, Constants.CpuScore.ToString(), new Vector2(Constants.ScreenWidth/4 - 20, 20), Color.White);
         spriteBatch.DrawString(_font, Constants.PlayerScore.ToString(), new Vector2(3 * Constants.ScreenWidth/4 - 20, 20), Color.White);
     }
@@ -109,7 +107,9 @@ public class PlayScene : IScene
             if (CheckCollision(_ball, sprite.Rect))
             {
                 _ball.SpeedX *= -1;
-                _ball.SpeedY += new Random().Next(-50, 50); // Adiciona variação
+                _ball.SpeedY += new Random().Next(-50, 50); // Add variation
+                _ball.IncreaseSpeed(); // Increase ball speed after paddle hit
+                _game.AudioManager.PlayHitSound();
                 break;
             }
         }
@@ -127,6 +127,7 @@ public class PlayScene : IScene
     {
         if (Constants.PlayerScore >= Constants.MaxScore || Constants.CpuScore >= Constants.MaxScore)
         {
+            _game.AudioManager.PlayScoreSound();
             _game.SceneManager.ChangeScene(GameStates.GameOver);
         }
     }

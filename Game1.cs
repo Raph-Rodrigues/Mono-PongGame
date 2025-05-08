@@ -10,6 +10,7 @@ public class Game1 : Game
     public SceneManager SceneManager { get; private set; }
     private SpriteFont _scoreFont;
     private SpriteFont _titleFont;
+    public AudioManager AudioManager { get; private set; }
 
     public Game1()
     {
@@ -25,6 +26,7 @@ public class Game1 : Game
     protected override void Initialize()
     {
         SceneManager = new SceneManager(this);
+        AudioManager = new AudioManager();
         base.Initialize();
     }
 
@@ -33,13 +35,14 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         _scoreFont = Content.Load<SpriteFont>("Score");
         _titleFont = Content.Load<SpriteFont>("Title");
+        AudioManager.LoadContent(this);
 
-        // Registrar todas as cenas primeiro
+        // Register all the scenes first
         SceneManager.RegisterScene(GameStates.Menu, new MenuScene(this, _titleFont));
         SceneManager.RegisterScene(GameStates.Play, new PlayScene(this, _scoreFont));
         SceneManager.RegisterScene(GameStates.GameOver, new GameOverScene(this, _titleFont));
         
-        // Iniciar com o menu
+        // Starts with Menu Scene
         SceneManager.ChangeScene(GameStates.Menu);
     }
 

@@ -4,10 +4,14 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/Admin/Documents/GameDev/Games/Jogos-Monogame/Mono-PongGame/Content/Hit SFX.wav</File>
+    <File>C:/Users/Admin/Documents/GameDev/Games/Jogos-Monogame/Mono-PongGame/Content/Ring.wav</File>
     <File>C:/Users/Admin/Documents/GameDev/Games/Jogos-Monogame/Mono-PongGame/Content/Score.spritefont</File>
     <File>C:/Users/Admin/Documents/GameDev/Games/Jogos-Monogame/Mono-PongGame/Content/Title.spritefont</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>

@@ -30,7 +30,7 @@ public class Sprite
 
     public virtual void Update(GameTime gameTime, Ball ball, GameWindow window)
     {
-        // Mantém a posição dentro dos limites da tela
+        // Keeps the position inside of screen limits
         Position.Y = MathHelper.Clamp(Position.Y, 0, window.ClientBounds.Height - Rect.Height);
     }
 }

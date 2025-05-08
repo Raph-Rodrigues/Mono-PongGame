@@ -25,3 +25,6 @@ C:\Users\Admin\Documents\GameDev\Games\Jogos-Monogame\Mono-PongGame\obj\Debug\ne
 C:\Users\Admin\Documents\GameDev\Games\Jogos-Monogame\Mono-PongGame\obj\Debug\net8.0\ref\Mono-PongGame.dll
 C:\Users\Admin\Documents\GameDev\Games\Jogos-Monogame\Mono-PongGame\bin\Debug\net8.0\Content\Score.xnb
 C:\Users\Admin\Documents\GameDev\Games\Jogos-Monogame\Mono-PongGame\bin\Debug\net8.0\Content\Title.xnb
+C:\Users\Admin\Documents\GameDev\Games\Jogos-Monogame\Mono-PongGame\bin\Debug\net8.0\Content\Hit SFX.xnb
+C:\Users\Admin\Documents\GameDev\Games\Jogos-Monogame\Mono-PongGame\bin\Debug\net8.0\Content\Ring.xnb
+C:\Users\Admin\Documents\GameDev\Games\Jogos-Monogame\Mono-PongGame\obj\Debug\net8.0\Mono-PongGame.sourcelink.json
