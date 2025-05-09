@@ -117,11 +117,10 @@ public class PlayScene : IScene
         {
             if (CheckCollision(_ball, sprite.Rect))
             {
-                _ball.SpeedX *= -1;
                 _ball.SpeedY += new Random().Next(-50, 50); // Add variation
                 _ball.IncreaseSpeed(); // Increase ball speed after paddle hit
                 _game.AudioManager.PlayHitSound();
-
+                
                 // Emit particles at collision point
                 _particleSystem.Emit(_ball.Position, 20, Constants.Yellow);
                 break;
@@ -131,10 +130,38 @@ public class PlayScene : IScene
 
     private bool CheckCollision(Ball ball, Rectangle rect)
     {
+        // Finds the closest point on the rectangle to the ball center
         var closestX = MathHelper.Clamp(ball.Position.X, rect.Left, rect.Right);
         var closestY = MathHelper.Clamp(ball.Position.Y, rect.Top, rect.Bottom);
+
+        // calculate the distance between the closest paddle and the center ball 
         var distance = Vector2.Distance(ball.Position, new Vector2(closestX, closestY));
-        return distance < ball.Radius;
+
+        if (distance < ball.Radius)
+        {
+            // calculate the overlaps in the x and y
+            float overlapLeft = ball.Position.X + ball.Radius - rect.Left;
+            float overlapRight = rect.Right - (ball.Position.X - ball.Radius);
+            float overlapTop = ball.Position.Y + ball.Radius - rect.Top;
+            float overlapBottom = rect.Bottom - (ball.Position.Y - ball.Radius);
+
+            // Finds the minor overlap
+            float minOverlap = Math.Min(Math.Min(overlapLeft, overlapRight), Math.Min(overlapTop, overlapBottom));
+
+            // Determin the collision side with base on the overlap
+            if (minOverlap == overlapLeft || minOverlap == overlapRight)
+            {
+                // horizontal collision (left/right) - invert x
+                ball.SpeedX *= -1;
+            }
+            else
+            {
+                // vertical collision (top/bottom) - invert y
+                ball.SpeedY *= -1;
+            }
+            return true;
+        }
+        return false;
     }
 
     private void CheckGameOver()
